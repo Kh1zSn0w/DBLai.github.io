@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -139,7 +141,20 @@ hr {
 </center>
 </body>
 <script>    
-
+ !function(w, d, s, ...args){
+      var div = d.createElement('div');
+      div.id = 'aichatbot';
+      d.body.appendChild(div);
+      w.chatbotConfig = args;
+      var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s);
+      j.defer = true;
+      j.type = 'module';
+      j.src = 'https://aichatbot.sendbird.com/index.js';
+      f.parentNode.insertBefore(j, f);
+    }(window, document, 'script', '7AE83627-E2C5-43A7-9B44-3592D6C36CEE', 'onboarding_bot', {
+      apiHost: 'https://api-cf-us-1.sendbird.com',
+    });
 
 function worker_function() {
   self.onmessage = function(event) {
