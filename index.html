@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DBL AI</title>
     
+    <!-- Add your Apple touch icon link here -->
     <link rel="apple-touch-icon" href="https://i.pinimg.com/564x/8c/6f/cf/8c6fcf6042d7113f8be5ed91ebe1f369.jpg">
     
+    <!-- Meta tags for iOS web app -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     
@@ -31,26 +33,18 @@
             height: 100%;
             object-fit: cover;
         }
+        .mobile-video {
+            display: none;
+        }
         .mobile-image {
             display: none;
         }
-        @media (min-width: 768px) {
-            .desktop-video {
+        @media (max-width: 767px) {
+            .mobile-video {
                 display: block;
             }
-        }
-        @media (max-width: 767px) {
-            .mobile-image {
-                display: block;
-                background-image: url('https://i.pinimg.com/564x/3a/d5/cf/3ad5cfa68755d9509c242481344f36fc.jpg');
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
+            .desktop-video {
+                display: none;
             }
         }
     </style>
@@ -62,10 +56,17 @@
             Your browser does not support the video tag.
         </video>
     </div>
-    <div class="background-image mobile-image"></div>
+    <div class="background-video mobile-video">
+        <video autoplay loop muted playsinline>
+            <source src="https://www.dropbox.com/scl/fi/fuigy84245vslhsyx3n5h/Untitled-video-Made-with-Clipchamp.mp4?rlkey=00syzzqzwaiid4jfrzmsoc19m&st=m4rkbvxp&raw=1" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
 
     <script>
-        !function(w, d, s, ...args){
+
+
+!function(w, d, s, ...args){
             var div = d.createElement('div');
             div.id = 'aichatbot';
             d.body.appendChild(div);
@@ -79,6 +80,13 @@
         }(window, document, 'script', '7AE83627-E2C5-43A7-9B44-3592D6C36CEE', 'onboarding_bot', {
             apiHost: 'https://api-cf-us-1.sendbird.com',
         });
+        
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+         
+            document.querySelector('.mobile-video').style.display = 'block';
+        } else {
+        
+        }
     </script>
 </body>
 </html>
