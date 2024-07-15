@@ -58,13 +58,14 @@
 
     <script>
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            var mobileVideo = document.querySelector('.mobile-video video');
+            var mobileVideoContainer = document.querySelector('.mobile-video');
+            var mobileVideo = mobileVideoContainer.querySelector('video');
             mobileVideo.autoplay = true;
             mobileVideo.loop = true;
             mobileVideo.muted = true;
             mobileVideo.playsinline = true;
-            mobileVideo.load(); // Ensure video properties are set before loading the video
-            document.querySelector('.mobile-video').style.display = 'block';
+            mobileVideo.load();
+            mobileVideoContainer.style.display = 'block';
         }
 
         !function(w, d, s, ...args){
