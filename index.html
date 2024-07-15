@@ -31,9 +31,6 @@
         .mobile-video {
             display: none;
         }
-        .mobile-image {
-            display: none;
-        }
         @media (max-width: 767px) {
             .mobile-video {
                 display: block;
@@ -51,22 +48,24 @@
         </video>
     </div>
     <div class="background-video mobile-video">
-        <video autoplay loop muted playsinline>
+        <video id="mobile-video" autoplay loop muted playsinline>
             <source src="https://www.dropbox.com/scl/fi/fuigy84245vslhsyx3n5h/Untitled-video-Made-with-Clipchamp.mp4?rlkey=00syzzqzwaiid4jfrzmsoc19m&st=m4rkbvxp&raw=1" type="video/mp4">
         </video>
     </div>
 
     <script>
-        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        function playVideo() {
             var mobileVideoContainer = document.querySelector('.mobile-video');
-            var mobileVideo = mobileVideoContainer.querySelector('video');
-            mobileVideo.autoplay = true;
-            mobileVideo.loop = true;
-            mobileVideo.muted = true;
-            mobileVideo.playsinline = true;
-            mobileVideo.load();
+            var mobileVideo = document.getElementById('mobile-video');
             mobileVideoContainer.style.display = 'block';
+            mobileVideo.play();
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                playVideo();
+            }
+        });
 
         !function(w, d, s, ...args){
             var div = d.createElement('div');
