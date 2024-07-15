@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DBL AI</title>
+    <title>DB Legends AI</title>
     
     <link rel="apple-touch-icon" href="https://i.pinimg.com/564x/8c/6f/cf/8c6fcf6042d7113f8be5ed91ebe1f369.jpg">
     
@@ -51,20 +51,18 @@
     <div class="background-video desktop-video">
         <video autoplay loop muted playsinline>
             <source src="https://www.dropbox.com/scl/fi/q19n5gybeygb3yswwmn4v/Dragon-Ball_-Legends-Cinematic-Opening-Intro-4K-60fps-vmake.mp4?rlkey=2i6fk84oc945s4gykqwkon46i&st=y8optv70&raw=1" type="video/mp4">
-            Your browser does not support the video tag.
+            X.
         </video>
     </div>
     <div class="background-video mobile-video">
         <video autoplay loop muted playsinline>
             <source src="https://www.dropbox.com/scl/fi/fuigy84245vslhsyx3n5h/Untitled-video-Made-with-Clipchamp.mp4?rlkey=00syzzqzwaiid4jfrzmsoc19m&st=m4rkbvxp&raw=1" type="video/mp4">
-            Your browser does not support the video tag.
+            X.
         </video>
     </div>
 
     <script>
-
-
-!function(w, d, s, ...args){
+        !function(w, d, s, ...args){
             var div = d.createElement('div');
             div.id = 'aichatbot';
             d.body.appendChild(div);
@@ -84,6 +82,18 @@
             document.querySelector('.mobile-video').style.display = 'block';
         } else {
         
+        }
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            // Display mobile video and ensure autoplay and loop
+            var mobileVideo = document.querySelector('.mobile-video video');
+            mobileVideo.autoplay = true;
+            mobileVideo.loop = true;
+            mobileVideo.muted = true;
+            mobileVideo.playsinline = true;
+            
+            document.querySelector('.mobile-video').style.display = 'block';
+        } else {
+            // Display desktop video (already visible by default)
         }
     </script>
 </body>
