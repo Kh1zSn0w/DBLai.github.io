@@ -37,7 +37,7 @@
                 position: relative;
                 width: 100%;
                 height: 100%;
-                background-image: url('https://i.pinimg.com/736x/88/4a/a0/884aa02fa0b89b5597373371163d53bd.jpg');
+                background-image: url('https://i.pinimg.com/736x/3a/d9/bd/3ad9bdd8c65fe38a5202225fc2b763e3.jpg');
                 background-size: cover;
                 background-position: center;
             }
@@ -64,20 +64,21 @@
             }
         });
 
-        !function(w, d, s, ...args){
-            var div = d.createElement('div');
-            div.id = 'aichatbot';
-            d.body.appendChild(div);
-            w.chatbotConfig = args;
-            var f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s);
-            j.defer = true;
-            j.type = 'module';
-            j.src = 'https://aichatbot.sendbird.com/index.js';
-            f.parentNode.insertBefore(j, f);
-        }(window, document, 'script', '7AE83627-E2C5-43A7-9B44-3592D6C36CEE', 'onboarding_bot', {
-            apiHost: 'https://api-cf-us-1.sendbird.com',
-        });
+        
     </script>
 </body>
 </html>
+
+
+<script>
+    window.embeddedChatbotConfig = {
+    chatbotId: "sGlOzgd5M6SgReo32jP9o",
+    domain: "www.chatbase.co"
+    }
+    </script>
+    <script
+    src="https://www.chatbase.co/embed.min.js"
+    chatbotId="sGlOzgd5M6SgReo32jP9o"
+    domain="www.chatbase.co"
+    defer>
+    </script>
