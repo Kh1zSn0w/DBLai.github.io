@@ -20,8 +20,9 @@
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
+            background: rgba(0, 0, 0, 0.5); /* Dimming effect */
         }
-        .background-video, .mobile-image {
+        .background-container {
             position: absolute;
             top: 0;
             left: 0;
@@ -30,10 +31,11 @@
             overflow: hidden;
             z-index: -1;
         }
-        .background-video video, .mobile-image {
+        .background-container video, .background-container .mobile-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            opacity: 0.5; /* Dimming effect */
         }
         .message-container {
             z-index: 1;
@@ -78,12 +80,12 @@
         <div class="note">Version V.1.8 will be back up by the end of next week.</div>
     </div>
 
-    <div class="background-video desktop-video">
+    <div class="background-container desktop-video">
         <video autoplay loop muted playsinline>
             <source src="https://www.dropbox.com/scl/fi/q19n5gybeygb3yswwmn4v/Dragon-Ball_-Legends-Cinematic-Opening-Intro-4K-60fps-vmake.mp4?rlkey=2i6fk84oc945s4gykqwkon46i&st=y8optv70&raw=1" type="video/mp4">
         </video>
     </div>
-    <div class="background-video mobile-image"></div>
+    <div class="background-container mobile-image"></div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
